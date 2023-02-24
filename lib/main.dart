@@ -1,10 +1,12 @@
 import 'package:aniwatch/Trending.dart';
+import 'package:aniwatch/consts.dart';
 import 'package:aniwatch/popular.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_navigation/get_navigation.dart';
 
 import 'api/types/search_result.dart';
+import 'search.dart';
 
 void main() {
   runApp(const GetMaterialApp(home: AniWatch()));
@@ -42,10 +44,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   static const List<Widget> _widgetOptions = <Widget>[
     Popular(),
     Trending(),
-    Text(
-      'Index 2: Search',
-      style: optionStyle,
-    ),
+    Search()
   ];
 
   void _onItemTapped(int index) {
@@ -87,7 +86,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
       //   },
       // )),
       appBar: AppBar(
-        title: const Text("AniWatch"),
+        title: const Text(APP_NAME),
       ),
       body: Center(
         child: _widgetOptions.elementAt(_selectedIndex),

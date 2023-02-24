@@ -1,12 +1,8 @@
-import 'dart:convert';
-
 import 'package:aniwatch/animeInfo.dart';
 import 'package:aniwatch/api/meta.dart';
 import 'package:aniwatch/api/types/Popular.dart';
-import 'package:aniwatch/consts.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:html/parser.dart';
 
 class Popular extends StatefulWidget {
   const Popular({Key? key}) : super(key: key);

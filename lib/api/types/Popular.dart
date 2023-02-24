@@ -40,9 +40,9 @@ class Result {
     required this.malId,
     required this.title,
     required this.image,
-    required this.trailer,
+    this.trailer,
     required this.description,
-    required this.status,
+    this.status,
     required this.cover,
     required this.rating,
     required this.releaseDate,
@@ -50,16 +50,16 @@ class Result {
     required this.genres,
     required this.totalEpisodes,
     required this.duration,
-    required this.type,
+    this.type,
   });
 
   String id;
   int malId;
   Title title;
   String image;
-  Trailer trailer;
+  Trailer? trailer;
   String description;
-  Status status;
+  Status? status;
   String cover;
   int rating;
   int releaseDate;
@@ -67,24 +67,25 @@ class Result {
   List<String> genres;
   int totalEpisodes;
   int duration;
-  Type type;
+  Type? type;
 
   factory Result.fromJson(Map<String, dynamic> json) => Result(
         id: json["id"],
         malId: json["malId"],
         title: Title.fromJson(json["title"]),
         image: json["image"],
-        trailer: Trailer.fromJson(json["trailer"]),
+        trailer:
+            json["trailer"] != null ? Trailer.fromJson(json["trailer"]) : null,
         description: json["description"],
-        status: statusValues.map[json["status"]]!,
-        cover: json["cover"],
-        rating: json["rating"],
-        releaseDate: json["releaseDate"],
+        status: statusValues.map[json["status"]],
+        cover: json["cover"] ?? '',
+        rating: json["rating"] ?? 0,
+        releaseDate: json["releaseDate"] ?? 0,
         color: json["color"],
         genres: List<String>.from(json["genres"].map((x) => x)),
         totalEpisodes: json["totalEpisodes"],
-        duration: json["duration"],
-        type: typeValues.map[json["type"]]!,
+        duration: json["duration"] ?? 0,
+        type: typeValues.map[json["type"]],
       );
 
   Map<String, dynamic> toJson() => {
@@ -92,7 +93,7 @@ class Result {
         "malId": malId,
         "title": title.toJson(),
         "image": image,
-        "trailer": trailer.toJson(),
+        "trailer": trailer?.toJson(),
         "description": description,
         "status": statusValues.reverse[status],
         "cover": cover,
@@ -125,10 +126,10 @@ class Title {
   String userPreferred;
 
   factory Title.fromJson(Map<String, dynamic> json) => Title(
-        romaji: json["romaji"],
-        english: json["english"],
-        native: json["native"],
-        userPreferred: json["userPreferred"],
+        romaji: json["romaji"] ?? '',
+        english: json["english"] ?? '',
+        native: json["native"] ?? '',
+        userPreferred: json["userPreferred"] ?? '',
       );
 
   Map<String, dynamic> toJson() => {
@@ -151,9 +152,9 @@ class Trailer {
   String? thumbnail;
 
   factory Trailer.fromJson(Map<String, dynamic> json) => Trailer(
-        id: json["id"],
+        id: json["id"] ?? '',
         site: siteValues.map[json["site"]],
-        thumbnail: json["thumbnail"],
+        thumbnail: json["thumbnail"] ?? '',
       );
 
   Map<String, dynamic> toJson() => {

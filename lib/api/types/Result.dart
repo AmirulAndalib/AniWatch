@@ -40,8 +40,8 @@ class Result {
   String toRawJson() => json.encode(toJson());
 
   factory Result.fromJson(Map<String, dynamic> json) => Result(
-        id: json["id"],
-        malId: json["malId"],
+        id: json["id"] ?? '',
+        malId: json["malId"] ?? 0,
         title: Title.fromJson(json["title"]),
         image: json["image"],
         trailer: Trailer.fromJson(json["trailer"]),
@@ -99,10 +99,10 @@ class Title {
   String toRawJson() => json.encode(toJson());
 
   factory Title.fromJson(Map<String, dynamic> json) => Title(
-        romaji: json["romaji"],
-        english: json["english"],
-        native: json["native"],
-        userPreferred: json["userPreferred"],
+        romaji: json["romaji"] ?? "",
+        english: json["english"] ?? "",
+        native: json["native"] ?? "",
+        userPreferred: json["userPreferred"] ?? "",
       );
 
   Map<String, dynamic> toJson() => {
