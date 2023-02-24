@@ -25,14 +25,14 @@ class Result {
   String image;
   Trailer trailer;
   String description;
-  Status status;
+  Status? status;
   String cover;
-  int rating;
-  int releaseDate;
+  int? rating;
+  int? releaseDate;
   //String color;
   List<String> genres;
-  int totalEpisodes;
-  int duration;
+  int? totalEpisodes;
+  int? duration;
   //Type type;
 
   factory Result.fromRawJson(String str) => Result.fromJson(json.decode(str));
@@ -46,7 +46,7 @@ class Result {
         image: json["image"],
         trailer: Trailer.fromJson(json["trailer"]),
         description: json["description"],
-        status: statusValues.map[json["status"]]!,
+        status: statusValues.map[json["status"]],
         cover: json["cover"],
         rating: json["rating"],
         releaseDate: json["releaseDate"],
