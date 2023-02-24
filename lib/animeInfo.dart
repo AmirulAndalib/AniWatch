@@ -53,7 +53,8 @@ class _AnimeInfoState extends State<AnimeInfo> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          parseFragment(snapshot.data!.description!).text!,
+                          parseFragment(snapshot.data?.description).text ??
+                              "Not available",
                           style: const TextStyle(color: Colors.white),
                         ),
                         const SizedBox(height: 16),
@@ -78,7 +79,8 @@ class _AnimeInfoState extends State<AnimeInfo> {
                                 color: Theme.of(context).colorScheme.secondary),
                             const SizedBox(width: 8),
                             Text(
-                              snapshot.data!.studios!.join(", "),
+                              snapshot.data?.studios?.join(", ") ??
+                                  "Not Available",
                               style: const TextStyle(color: Colors.white),
                             ),
                           ],
@@ -103,15 +105,15 @@ class _AnimeInfoState extends State<AnimeInfo> {
                                 fit: BoxFit.cover)),
                         child: ListTile(
                           onTap: () => Get.to(() => Watch(
-                              episodeTitle: e.title!,
-                              episodeId: e.id!,
+                              episodeTitle: e.title ?? "Episode ${e.number}",
+                              episodeId: e.id ?? '',
                               episodeDescription: e.description)),
                           title: Text(
                             'Episode ${e.number}',
                             style: const TextStyle(color: Colors.white),
                           ),
                           subtitle: Text(
-                            e.title!,
+                            e.title ?? '',
                             style: const TextStyle(color: Colors.white),
                           ),
                         ),
