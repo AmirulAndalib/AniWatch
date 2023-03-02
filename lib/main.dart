@@ -1,14 +1,14 @@
 import 'package:aniwatch/Trending.dart';
 import 'package:aniwatch/consts.dart';
+import 'package:aniwatch/favorites.dart';
 import 'package:aniwatch/popular.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_navigation/get_navigation.dart';
-
-import 'api/types/search_result.dart';
 import 'search.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(const GetMaterialApp(home: AniWatch()));
 }
 
@@ -37,14 +37,15 @@ class MyStatefulWidget extends StatefulWidget {
 
 class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   int _selectedIndex = 0;
-  late Future<SearchResult?>? futureSearchResult = null;
-  String searchValue = '';
-  static const TextStyle optionStyle =
-      TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   static const List<Widget> _widgetOptions = <Widget>[
     Popular(),
     Trending(),
-    Search()
+    Search(),
+    Favorites(),
+    LicensePage(
+        applicationName: APP_NAME,
+        applicationVersion: "0.0.1-beta",
+        applicationLegalese: "Copyright 2023 Sayan Biswas")
   ];
 
   void _onItemTapped(int index) {
@@ -56,59 +57,37 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: EasySearchBar(
-      //     searchBackIconTheme: const IconThemeData(color: Colors.white),
-      //     iconTheme: const IconThemeData(color: Colors.white),
-      //     title: const Text('AniWatch'),
-      //     onSearch: (value) => setState(() {
-      //           if (value.isNotEmpty) {
-      //             futureSearchResult = AnilistMeta().searchAnime(value);
-      //           }
-      //           searchValue = value;
-      //         })),
-      // drawer: Drawer(
-      //     child: FutureBuilder<SearchResult?>(
-      //   future: futureSearchResult,
-      //   builder: (context, snapshot) {
-      //     if (snapshot.hasData) {
-      //       return ListView(
-      //           padding: EdgeInsets.zero,
-      //           children: snapshot.data!.results.map((e) {
-      //             return ListTile(
-      //                 title: Text(e.title.english!),
-      //                 onTap: () => Get.to(() => AnimeInfo(
-      //                     title: e.title.english!, id: int.parse(e.id))));
-      //           }).toList());
-      //     } else if (snapshot.hasError) {
-      //       return Text('${snapshot.error}');
-      //     }
-      //     return const CircularProgressIndicator();
-      //   },
-      // )),
       appBar: AppBar(
         title: const Text(APP_NAME),
+        // backgroundColor: ThemeData.dark().primaryColorDark,
       ),
-      body: Center(
-        child: _widgetOptions.elementAt(_selectedIndex),
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.people),
-            label: 'Popular',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.trending_up),
-            label: 'Trending',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.search),
-            label: 'Search',
-          ),
+      body: Row(
+        children: <Widget>[
+          NavigationRail(
+              indicatorColor: Theme.of(context).appBarTheme.surfaceTintColor,
+              destinations: const <NavigationRailDestination>[
+                NavigationRailDestination(
+                    icon: Icon(Icons.people), label: Text('Popular')),
+                NavigationRailDestination(
+                    icon: Icon(Icons.trending_up), label: Text("Trending")),
+                NavigationRailDestination(
+                    icon: Icon(Icons.search), label: Text("Search")),
+                NavigationRailDestination(
+                    icon: Icon(Icons.favorite), label: Text("Favorites")),
+                NavigationRailDestination(
+                    icon: Icon(Icons.info), label: Text("About"))
+              ],
+              selectedIndex: _selectedIndex,
+              backgroundColor: ThemeData.dark().canvasColor,
+              minWidth: 60,
+              onDestinationSelected: _onItemTapped),
+          // const VerticalDivider(thickness: 1, width: 2),
+          Expanded(
+            child: Center(
+              child: _widgetOptions.elementAt(_selectedIndex),
+            ),
+          )
         ],
-        currentIndex: _selectedIndex,
-        selectedItemColor: const Color.fromARGB(255, 209, 21, 216),
-        onTap: _onItemTapped,
       ),
     );
   }

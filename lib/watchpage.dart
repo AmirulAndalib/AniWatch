@@ -2,6 +2,7 @@ import 'package:aniwatch/api/meta.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:better_player/better_player.dart';
+import 'package:wakelock/wakelock.dart';
 import 'api/types/streaming_links.dart';
 
 class Watch extends StatefulWidget {
@@ -24,7 +25,14 @@ class _WatchState extends State<Watch> {
   @override
   void initState() {
     super.initState();
+    Wakelock.enable();
     futureServers = AnilistMeta().getStreamingLinks(widget.episodeId);
+  }
+
+  @override
+  void dispose() {
+    Wakelock.disable();
+    super.dispose();
   }
 
   @override
