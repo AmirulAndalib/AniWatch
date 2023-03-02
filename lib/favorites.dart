@@ -1,4 +1,5 @@
 // ignore_for_file: library_prefixes, use_build_context_synchronously
+import 'package:aniwatch/animeInfo.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:localstore/localstore.dart';
@@ -38,6 +39,9 @@ class _FavoritesState extends State<Favorites> {
                   itemCount: animes.length,
                   itemBuilder: (BuildContext context, int index) {
                     return GestureDetector(
+                      onTap: () => Get.to(() => AnimeInfo(
+                          title: animes[index]['anime_name'],
+                          id: int.parse(animes[index]['anime_id']))),
                       onLongPress: () async {
                         setState(() {});
                         ShowToast(context,
