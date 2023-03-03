@@ -1,4 +1,4 @@
-import 'package:aniwatch/api/types/Popular.dart';
+import 'package:aniwatch/api/types/popular.dart';
 
 class SearchResult {
   SearchResult({
@@ -18,10 +18,10 @@ class SearchResult {
   }
 
   Map<String, dynamic> toJson() {
-    final _data = <String, dynamic>{};
-    _data['currentPage'] = currentPage;
-    _data['hasNextPage'] = hasNextPage;
-    _data['results'] = results.map((e) => e.toJson()).toList();
-    return _data;
+    final data = <String, dynamic>{};
+    data['currentPage'] = currentPage;
+    data['hasNextPage'] = hasNextPage;
+    data['results'] = results.map((e) => e.toJson()).toList();
+    return data;
   }
 }

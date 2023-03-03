@@ -1,6 +1,6 @@
 import 'package:aniwatch/api/meta.dart';
-import 'package:aniwatch/api/types/Info.dart';
-import 'package:aniwatch/watchpage.dart';
+import 'package:aniwatch/api/types/info.dart';
+import 'package:aniwatch/watch_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:html/parser.dart';
@@ -105,9 +105,10 @@ class _AnimeInfoState extends State<AnimeInfo> {
                                 fit: BoxFit.cover)),
                         child: ListTile(
                           onTap: () => Get.to(() => Watch(
-                              episodeTitle: e.title ?? "Episode ${e.number}",
-                              episodeId: e.id ?? '',
-                              episodeDescription: e.description)),
+                                episode: e,
+                                anime: snapshot.data!,
+                                //episodeNumber: e.number
+                              )),
                           title: Text(
                             'Episode ${e.number}',
                             style: const TextStyle(color: Colors.white),

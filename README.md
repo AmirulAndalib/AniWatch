@@ -1,16 +1,16 @@
 # aniwatch
 
-A new Flutter project.
+> Experimental Anime Streaming app working with the power of web scraping
 
-## Getting Started
+## Stack 
 
-This project is a starting point for a Flutter application.
+- flutter for making the app itself
+- anilist for fetching anime information
+- gogoanime for fetching anime episode streams
 
-A few resources to get you started if this is your first Flutter project:
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+> ⚠️ This app does not store any anime information and every anime is fetched from \
+remote sources which are not affiliated with me and are widely available to everyone 
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+
+> ### ©️ 2023 Sayan Biswas, AniWatch Project is made solely for education purposes only

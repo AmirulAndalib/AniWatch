@@ -1,18 +1,16 @@
 import 'package:aniwatch/api/meta.dart';
+import 'package:aniwatch/api/types/info.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:better_player/better_player.dart';
+import 'package:localstore/localstore.dart';
+import 'package:wakelock/wakelock.dart';
 import 'api/types/streaming_links.dart';
 
 class Watch extends StatefulWidget {
-  final String episodeTitle;
-  final String episodeId;
-  final String? episodeDescription;
-  const Watch(
-      {super.key,
-      required this.episodeTitle,
-      required this.episodeId,
-      required this.episodeDescription});
+  final AnilistInfo anime;
+  final Episodes episode;
+  const Watch({super.key, required this.episode, required this.anime});
 
   @override
   State<Watch> createState() => _WatchState();
@@ -20,11 +18,27 @@ class Watch extends StatefulWidget {
 
 class _WatchState extends State<Watch> {
   late Future<StreamingLinks?> futureServers;
+  final db = Localstore.instance;
+
+  Future<void> updateProgress() async {
+    await db
+        .collection("watch-list")
+        .doc(widget.anime.id)
+        .set({"anime": widget.anime, "episode": widget.episode});
+  }
 
   @override
   void initState() {
     super.initState();
-    futureServers = AnilistMeta().getStreamingLinks(widget.episodeId);
+    Wakelock.enable();
+    updateProgress();
+    futureServers = AnilistMeta().getStreamingLinks(widget.episode.id!);
+  }
+
+  @override
+  void dispose() {
+    Wakelock.disable();
+    super.dispose();
   }
 
   @override
@@ -33,7 +47,7 @@ class _WatchState extends State<Watch> {
       backgroundColor: ThemeData.dark().scaffoldBackgroundColor,
       appBar: AppBar(
         backgroundColor: ThemeData.dark().primaryColorDark,
-        title: Text(widget.episodeTitle),
+        title: Text(widget.episode.title ?? "No title"),
         centerTitle: true,
       ),
       body: Center(
@@ -43,8 +57,8 @@ class _WatchState extends State<Watch> {
           if (snapshot.hasData) {
             var defaultLink = "";
             var description = "";
-            if (widget.episodeDescription != null) {
-              description = widget.episodeDescription!;
+            if (widget.episode.description != null) {
+              description = widget.episode.description!;
             } else {
               description = "No description provided";
             }

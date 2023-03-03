@@ -1,10 +1,11 @@
 import 'dart:convert';
-
-import 'package:aniwatch/animeInfo.dart';
+import 'package:aniwatch/anime_info.dart';
 import 'package:aniwatch/consts.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+
+import 'helpers/pop_up.dart';
 
 class Search extends StatefulWidget {
   const Search({Key? key}) : super(key: key);
@@ -14,6 +15,14 @@ class Search extends StatefulWidget {
 }
 
 class _SearchState extends State<Search> {
+  Offset _tapPosition = Offset.zero;
+  void _getTapPosition(TapDownDetails details) {
+    final RenderBox referenceBox = context.findRenderObject() as RenderBox;
+    setState(() {
+      _tapPosition = referenceBox.globalToLocal(details.globalPosition);
+    });
+  }
+
   TextEditingController searchController = TextEditingController();
   List<Map<String, dynamic>> itemList = [];
   List<Map<String, dynamic>> filteredItemList = [];
@@ -102,15 +111,33 @@ class _SearchState extends State<Search> {
                                           filteredItemList[index]['image']),
                                       fit: BoxFit.cover,
                                       opacity: 0.5)),
-                              child: ListTile(
-                                  title: Text(filteredItemList[index]['title']['romaji'] ??
-                                      ''),
-                                  subtitle: Text(filteredItemList[index]
-                                          ['title']['english'] ??
-                                      ''),
-                                  onTap: () => Get.to(() => AnimeInfo(
-                                      title: filteredItemList[index]['title']['romaji'],
-                                      id: int.parse(filteredItemList[index]['id']))))),
+                              child: GestureDetector(
+                                onTapDown: (details) =>
+                                    _getTapPosition(details),
+                                // show the context menu
+                                onLongPress: () => showAnimeContextMenu(
+                                    context,
+                                    _tapPosition,
+                                    filteredItemList[index]['title']['english'],
+                                    filteredItemList[index]['id'],
+                                    filteredItemList[index]['image'],
+                                    filteredItemList[index]['totalEpisodes']),
+                                child: ListTile(
+                                    title: Text(
+                                        filteredItemList[index]['title']
+                                                ['romaji'] ??
+                                            '',
+                                        overflow: TextOverflow.ellipsis),
+                                    subtitle: Text(
+                                        filteredItemList[index]['title']
+                                                ['english'] ??
+                                            '',
+                                        overflow: TextOverflow.ellipsis),
+                                    onTap: () => Get.to(() => AnimeInfo(
+                                        title: filteredItemList[index]['title']
+                                            ['romaji'],
+                                        id: int.parse(filteredItemList[index]['id'])))),
+                              )),
                         ),
                       ),
                     ),
