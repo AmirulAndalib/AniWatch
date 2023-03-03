@@ -40,3 +40,9 @@ jobs:
         with:
           name: Built
           path: build/app/outputs/flutter-apk/
+      - uses: "marvinpinto/action-automatic-releases@latest"
+        with:
+          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          prerelease: false
+          files: |
+            build/app/outputs/flutter-apk/*.apk
