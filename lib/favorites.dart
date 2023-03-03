@@ -1,10 +1,10 @@
 // ignore_for_file: library_prefixes, use_build_context_synchronously
-import 'package:aniwatch/animeInfo.dart';
+import 'package:aniwatch/anime_info.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:localstore/localstore.dart';
 
-import 'helpers/popUp.dart';
+import 'helpers/pop_up.dart';
 
 class Favorites extends StatefulWidget {
   const Favorites({Key? key}) : super(key: key);

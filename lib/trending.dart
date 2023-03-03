@@ -1,10 +1,11 @@
+// ignore_for_file: file_names
+
+import 'package:aniwatch/anime_info.dart';
 import 'package:aniwatch/api/meta.dart';
-import 'package:aniwatch/api/types/Trending.dart';
+import 'package:aniwatch/api/types/trending.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
-import 'animeInfo.dart';
-import 'helpers/popUp.dart';
+import 'helpers/pop_up.dart';
 
 class Trending extends StatefulWidget {
   const Trending({Key? key}) : super(key: key);

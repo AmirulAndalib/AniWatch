@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_navigation/get_navigation.dart';
 import 'search.dart';
+import 'user_progress.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -42,6 +43,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
     Trending(),
     Search(),
     Favorites(),
+    UserProgress(),
     LicensePage(
         applicationName: APP_NAME,
         applicationVersion: "0.0.1-beta",
@@ -74,6 +76,8 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                     icon: Icon(Icons.search), label: Text("Search")),
                 NavigationRailDestination(
                     icon: Icon(Icons.favorite), label: Text("Favorites")),
+                NavigationRailDestination(
+                    icon: Icon(Icons.watch_later), label: Text("Progress")),
                 NavigationRailDestination(
                     icon: Icon(Icons.info), label: Text("About"))
               ],

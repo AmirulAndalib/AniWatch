@@ -1,11 +1,11 @@
 import 'dart:convert';
-import 'package:aniwatch/api/types/Info.dart';
-import 'package:aniwatch/api/types/Trending.dart';
+import 'package:aniwatch/api/types/info.dart';
+import 'package:aniwatch/api/types/trending.dart';
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import '../consts.dart';
-import 'types/Popular.dart';
-import 'types/StreamingServers.dart';
+import 'types/popular.dart';
+import 'types/streaming_servers.dart';
 import 'types/search_result.dart';
 import 'types/streaming_links.dart';
 

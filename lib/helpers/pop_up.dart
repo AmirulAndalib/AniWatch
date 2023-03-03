@@ -1,20 +1,13 @@
 // This function will be called when you long press on the blue box or the image
 // ignore_for_file: use_build_context_synchronously
 
-import 'package:aniwatch/api/types/Popular.dart';
 import 'package:flutter/material.dart';
 import 'package:localstore/localstore.dart';
 
-void showAnimeContextMenu(
-    BuildContext context,
-    Offset tapPosition,
-    String anime_name,
-    String anime_id,
-    String anime_image,
-    int anime_eps) async {
+void showAnimeContextMenu(BuildContext context, Offset tapPosition,
+    String animeName, String animeId, String animeImage, int anime_eps) async {
   final RenderObject? overlay = Overlay.of(context).context.findRenderObject();
   final db = Localstore.instance;
-  // ignore: use_build_context_synchronously
   final result = await showMenu(
       context: context,
       color: ThemeData.dark().dialogBackgroundColor,
@@ -46,13 +39,13 @@ void showAnimeContextMenu(
       debugPrint('Add To Favorites');
       // var e = await store.record('favs').get(db);
       // debugPrint(e.toString());
-      await db.collection('favs').doc(anime_id).set({
-        "anime_name": anime_name,
-        "anime_id": anime_id,
-        "anime_img": anime_image,
+      await db.collection('favs').doc(animeId).set({
+        "anime_name": animeName,
+        "anime_id": animeId,
+        "anime_img": animeImage,
         "anime_total_eps": anime_eps
       });
-      ShowToast(context, "Added ${anime_name} to favorites");
+      ShowToast(context, "Added $animeName to favorites");
       // var res = await db.collection('favs').get();
       // debugPrint(res.toString());
       break;

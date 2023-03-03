@@ -1,7 +1,7 @@
-import 'package:aniwatch/animeInfo.dart';
+import 'package:aniwatch/anime_info.dart';
 import 'package:aniwatch/api/meta.dart';
-import 'package:aniwatch/api/types/Popular.dart';
-import 'package:aniwatch/helpers/popUp.dart';
+import 'package:aniwatch/api/types/popular.dart';
+import 'package:aniwatch/helpers/pop_up.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

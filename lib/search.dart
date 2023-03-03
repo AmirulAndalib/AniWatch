@@ -1,13 +1,11 @@
 import 'dart:convert';
-
-import 'package:aniwatch/animeInfo.dart';
-import 'package:aniwatch/api/types/Popular.dart';
+import 'package:aniwatch/anime_info.dart';
 import 'package:aniwatch/consts.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 
-import 'helpers/popUp.dart';
+import 'helpers/pop_up.dart';
 
 class Search extends StatefulWidget {
   const Search({Key? key}) : super(key: key);
